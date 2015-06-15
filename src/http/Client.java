@@ -35,12 +35,15 @@ public class Client extends ObjetConnecte {
 
     public void envoyer(byte[] array) throws IOException {
         this.BOS.write(array);
+        BOS.flush();
+        System.out.println("J'ai envoyé : " + new String(array));
     }
 
     public byte[] reception() throws IOException {
+        System.out.println("réception");
         byte[] buffer = new byte[1024];
         BIS.read(buffer);
-        System.out.println(new String(buffer));
+        System.out.println("J'ai reçu : " + new String(buffer));
         return buffer;
     }
 }
