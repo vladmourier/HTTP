@@ -20,7 +20,7 @@ import java.net.SocketException;
  */
 public class Client extends ObjetConnecte {
 
-    private Socket SocketServeur;
+    private Socket socket;
 
     public Client() throws SocketException {
         super();
@@ -28,12 +28,12 @@ public class Client extends ObjetConnecte {
 
     public Client(InetAddress ia, int port) throws SocketException, IOException {
         super(ia, port);
-        this.port_c = this.SocketServeur.getLocalPort();
-        this.SocketServeur = new Socket(ia, port);
+        this.socket = new Socket(ia, port);
+        this.port_c = this.socket.getLocalPort();
 
-        this.IS = this.SocketServeur.getInputStream();
+        this.IS = this.socket.getInputStream();
         this.BIS = new BufferedInputStream(this.IS);
-        this.OS = this.SocketServeur.getOutputStream();
+        this.OS = this.socket.getOutputStream();
 
     }
 
