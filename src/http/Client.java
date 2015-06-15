@@ -24,10 +24,6 @@ public class Client extends ObjetConnecte {
 
     private Socket socket;
 
-    public Client() throws SocketException {
-        super();
-    }
-
     public Client(InetAddress ia, int port) throws SocketException, IOException {
         super(ia, port);
         this.socket = new Socket(ia, port);
@@ -36,12 +32,19 @@ public class Client extends ObjetConnecte {
         this.IS = this.socket.getInputStream();
         this.BIS = new BufferedInputStream(this.IS);
         this.OS = this.socket.getOutputStream();
+        this.BOS = new BufferedOutputStream(OS);
 
     }
 
     public void envoyer(byte[] array) throws IOException {
-        this.BOS = new BufferedOutputStream(OS);
         this.BOS.write(array);
         this.BOS.flush();
+    }
+
+    public byte[] reception() throws IOException {
+        byte[] buffer = new byte[1024];
+        BIS.read(buffer);
+        System.out.println(new String(buffer));
+        return buffer;
     }
 }

@@ -19,13 +19,14 @@ public class HTTPClient {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             Client c = new Client(InetAddress.getByName("127.0.0.1"), 4000);
-            c.envoyer(new String ("Je teste l'envoi").getBytes("ascii"));
+            c.envoyer(new String("GET http://www.google.fr HTTP/1.0").getBytes("ascii"));
+            c.reception();
         } catch (IOException ex) {
             Logger.getLogger(HTTPClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
-    
+    }
+
 }
