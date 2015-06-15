@@ -6,6 +6,7 @@
 package http;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -19,23 +20,25 @@ import java.net.SocketException;
  */
 public class Client extends ObjetConnecte {
 
+    private Socket SocketServeur;
+
     public Client() throws SocketException {
         super();
     }
 
     public Client(InetAddress ia, int port) throws SocketException, IOException {
         super(ia, port);
-        this.s = new Socket(ia, port);
-        
-        this.entree = this.s.getInputStream();
-        this.bufentree = new BufferedInputStream(this.entree);
-        this.sortie = this.s.getOutputStream();
-        
+        this.port_c = this.SocketServeur.getLocalPort();
+        this.SocketServeur = new Socket(ia, port);
+
+        this.IS = this.SocketServeur.getInputStream();
+        this.BIS = new BufferedInputStream(this.IS);
+        this.OS = this.SocketServeur.getOutputStream();
+
     }
 
-    public void envoyer(byte[] array, InetAddress address, int port) throws IOException {
-//        this.ia_c = address;
-//        this.dp = new DatagramPacket(array, array.length, ia_c, port);
-//        s.send(dp);
+    public void envoyer(byte[] array) throws IOException {
+        this.BOS = new BufferedOutputStream(OS);
+        this.BOS.write(array);
     }
 }

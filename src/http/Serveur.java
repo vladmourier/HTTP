@@ -23,7 +23,7 @@ public class Serveur{
 
     
    public Serveur(int port_s) throws SocketException, IOException{
-    this.socketServer = new ServerSocket(4000);
+    this.socketServer = new ServerSocket(port_s);
    }
    public int Initialisation () throws IOException {
        Socket Sclient = this.socketServer.accept();
