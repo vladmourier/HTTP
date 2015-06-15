@@ -21,8 +21,8 @@ public class HTTPClient {
      */
     public static void main(String[] args) {
         try {
-            Client c = new Client(InetAddress.getByName("127.0.0.1"), 4000);
-            c.envoyer(new String("GET http://www.google.fr HTTP/1.0").getBytes("ascii"));
+            Client c = new Client(InetAddress.getByName("www.google.fr"), 80);
+            c.envoyer(new String("GET / HTTP/1.0 \nHost: 216.58.210.195:80").getBytes("ascii"));
             c.reception();
         } catch (IOException ex) {
             Logger.getLogger(HTTPClient.class.getName()).log(Level.SEVERE, null, ex);
