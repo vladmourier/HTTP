@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 
 /**
@@ -21,20 +22,19 @@ public class Client extends ObjetConnecte {
         super();
     }
 
-    public Client(int i) throws SocketException {
-        super(i);
-        this.ds = new DatagramSocket(this.port_c);
-
-    }
-
-    public Client(InetAddress ia, int i) throws SocketException {
-        super(ia, i);
-        this.ds = new DatagramSocket(this.port_c);
+    public Client(InetAddress ia, int port) throws SocketException, IOException {
+        super(ia, port);
+        this.s = new Socket(ia, port);
+        
+        this.entree = this.s.getInputStream();
+        
+        this.sortie = this.s.getOutputStream();
+        
     }
 
     public void envoyer(byte[] array, InetAddress address, int port) throws IOException {
-        this.ia_c = address;
-        this.dp = new DatagramPacket(array, array.length, ia_c, port);
-        ds.send(dp);
+//        this.ia_c = address;
+//        this.dp = new DatagramPacket(array, array.length, ia_c, port);
+//        s.send(dp);
     }
 }
