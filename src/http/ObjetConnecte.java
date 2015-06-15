@@ -5,6 +5,10 @@
  */
 package http;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -21,8 +25,10 @@ public class ObjetConnecte {
     int MAX;
     int port_c;
     public InetAddress ia_c;
-    public DatagramSocket ds;
-    public DatagramPacket dp;
+    protected InputStream IS;
+    protected OutputStream OS;
+    protected BufferedInputStream BIS;
+    protected BufferedOutputStream BOS;
 
     public ObjetConnecte() throws SocketException {
         this.ds = new DatagramSocket();
