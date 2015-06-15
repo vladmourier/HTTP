@@ -5,6 +5,7 @@
  */
 package http;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -27,7 +28,7 @@ public class Client extends ObjetConnecte {
         this.s = new Socket(ia, port);
         
         this.entree = this.s.getInputStream();
-        
+        this.bufentree = new BufferedInputStream(this.entree);
         this.sortie = this.s.getOutputStream();
         
     }
