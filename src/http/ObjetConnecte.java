@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
@@ -31,8 +32,8 @@ public class ObjetConnecte {
     protected BufferedOutputStream BOS;
 
     public ObjetConnecte() throws SocketException {
-        this.ds = new DatagramSocket();
-        this.port_c = this.ds.getLocalPort();
+        this.s = new Socket();
+        this.port_c = this.s.getLocalPort();
         this.MAX = 2000;
     }
 
@@ -102,12 +103,12 @@ public class ObjetConnecte {
         this.ia_c = ia_c;
     }
 
-    public DatagramSocket getDs() {
-        return ds;
+    public Socket getS() {
+        return s;
     }
 
-    public void setDs(DatagramSocket ds) {
-        this.ds = ds;
+    public void setS(Socket s) {
+        this.s = s;
     }
 
     public DatagramPacket getDp() {
