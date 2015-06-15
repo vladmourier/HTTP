@@ -13,6 +13,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Client extends ObjetConnecte {
         super(ia, port);
         this.socket = new Socket(ia, port);
         this.port_c = this.socket.getLocalPort();
+        System.out.println("Socket créé port : " + port_c);
         this.IS = this.socket.getInputStream();
         this.BIS = new BufferedInputStream(this.IS);
         this.OS = this.socket.getOutputStream();
