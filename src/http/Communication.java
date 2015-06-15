@@ -36,7 +36,7 @@ public class Communication extends ObjetConnecte implements Runnable {
         port_dest = client.getPort();
         this.Sclient = client;
         this.address_dest = client.getInetAddress();
-        System.out.println("Communication créée avec le Client : " + address_dest + " | " + port_dest + " Sur le port " + this.port_ecoute);
+        System.out.println("Communication créée avec le Client : " + address_dest + " | " + port_dest);
     }
 
     @Override

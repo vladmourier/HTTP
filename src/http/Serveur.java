@@ -28,7 +28,7 @@ public class Serveur{
    public int Initialisation () throws IOException {
        Socket Sclient = this.socketServer.accept();
        Communication com = new Communication(Sclient);
-       Thread T = new Thread (com);
+       Thread T = new Thread(com);
        T.start();
        this.socketServer.close();
        return 0;
