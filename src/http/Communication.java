@@ -45,22 +45,6 @@ public class Communication extends ObjetConnecte implements Runnable {
             this.BIS = new BufferedInputStream(this.IS);
             this.BIS.read(buffer);
 
-            
-
-            
-            
-         
-           
-            
-            
-
-      
-                System.out.println(new String(buffer).substring(0, buffer.length));
-                String[] str = new String(buffer).split("\n");
-                System.out.println("Première ligne " + str[0]);
-                str = str[0].split(" ");
-                System.out.println("fichier demandé " + str[1]);
-
                 
                 String adresseFichier = "C:\\Users\\p1407206\\Desktop\\url.jpg";
                 

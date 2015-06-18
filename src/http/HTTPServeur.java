@@ -6,6 +6,7 @@
 package http;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,9 +18,8 @@ public class HTTPServeur {
         public static void main(String[] args){
             try {
                 Serveur s = new Serveur(4000);
-                s.Initialisation();
-                          while (true) {
-                        }
+
+                s.run();
 
             } catch (IOException ex) {
                 Logger.getLogger(HTTPServeur.class.getName()).log(Level.SEVERE, null, ex);
