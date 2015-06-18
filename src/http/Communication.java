@@ -10,6 +10,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -52,6 +53,12 @@ public class Communication extends ObjetConnecte implements Runnable {
             System.out.println("Première ligne " + str[0]);
             str = str[0].split(" ");
             System.out.println("fichier demandé " + str[1]);
+            
+            
+            RandomAccessFile monFichier = new RandomAccessFile("C:\\Users\\p1407206\\Desktop\\albert.txt", "rw");
+           this.BOS.write(monFichier.readLine().getBytes());
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
         }
