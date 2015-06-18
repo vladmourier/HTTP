@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,12 +23,16 @@ public class Serveur{
    public Serveur(int port_s) throws SocketException, IOException{
     this.socketServer = new ServerSocket(port_s);
    }
-   public int Initialisation () throws IOException {
-       Socket Sclient = this.socketServer.accept();
-       Communication com = new Communication(Sclient);
-       Thread T = new Thread(com);
-       T.start();
-       this.socketServer.close();
-       return 0;
-   }
+   
+   public void run() {
+       while (true) {
+           try {
+                Socket Sclient = this.socketServer.accept();
+                new Thread(new Communication(Sclient)).start();
+                //this.socketServer.close();         
+            } catch (IOException ex) {
+                Logger.getLogger(HTTPServeur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

@@ -42,25 +42,24 @@ public class Communication extends ObjetConnecte implements Runnable {
             this.IS = Sclient.getInputStream();
             this.BIS = new BufferedInputStream(this.IS);
             this.BIS.read(buffer);
-            while (true) {
-                System.out.println(new String(buffer).substring(0, buffer.length));
-                String[] str = new String(buffer).split("\n");
-                System.out.println("Première ligne " + str[0]);
-                str = str[0].split(" ");
-                System.out.println("fichier demandé " + str[1]);
 
-                this.BOS.write("HTTP/1.0 200 OK\r\n".getBytes());
-                this.BOS.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n".getBytes());
-                this.BOS.write("Server: Apache/0.8.4\r\n".getBytes());
-                this.BOS.write("Content-Type: text/html\r\n".getBytes());
-                this.BOS.write("Content-Length: 59\r\n".getBytes());
-                this.BOS.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n".getBytes());
-                this.BOS.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n".getBytes());
-                this.BOS.write("\r\n".getBytes());
-                this.BOS.write("<TITLE>Exemple</TITLE>".getBytes());
-                this.BOS.write("<P>Ceci est une page d'exemple.</P>".getBytes());
-                this.BOS.flush();
-            }
+            System.out.println(new String(buffer).substring(0, buffer.length));
+            String[] str = new String(buffer).split("\n");
+            System.out.println("Première ligne " + str[0]);
+            str = str[0].split(" ");
+            System.out.println("fichier demandé " + str[1]);
+
+            this.BOS.write("HTTP/1.0 200 OK\r\n".getBytes());
+            this.BOS.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n".getBytes());
+            this.BOS.write("Server: Apache/0.8.4\r\n".getBytes());
+            this.BOS.write("Content-Type: text/html\r\n".getBytes());
+            this.BOS.write("Content-Length: 59\r\n".getBytes());
+            this.BOS.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n".getBytes());
+            this.BOS.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n".getBytes());
+            this.BOS.write("\r\n".getBytes());
+            this.BOS.write("<TITLE>Exemple</TITLE>".getBytes());
+            this.BOS.write("<P>Ceci est une page d'exemple.</P>".getBytes());
+            this.BOS.flush();
 
         } catch (IOException ex) {
             Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
