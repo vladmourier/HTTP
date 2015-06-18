@@ -9,6 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
@@ -48,42 +49,61 @@ public class Communication extends ObjetConnecte implements Runnable {
 
             
             
-            RandomAccessFile monFichier = new RandomAccessFile("C:\\Users\\p1407206\\Desktop\\albert.txt", "rw");
-            
-            Byte a = monFichier.readByte();
-            while(a != null) {
-                this.BOS.write(a);
-                try {
-                    a = monFichier.readByte();
-                }
-                catch(EOFException e) {
-                        
-                }
-            }
+         
            
             
             
 
-            while (true) {
+      
                 System.out.println(new String(buffer).substring(0, buffer.length));
                 String[] str = new String(buffer).split("\n");
                 System.out.println("Première ligne " + str[0]);
                 str = str[0].split(" ");
                 System.out.println("fichier demandé " + str[1]);
 
+                
+                String adresseFichier = "C:\\Users\\p1407206\\Desktop\\url.jpg";
+                
+                RandomAccessFile monFichier = new RandomAccessFile(adresseFichier, "rw");
+                String[] typeFichier = adresseFichier.split(".");
+                String typeFichier2 = typeFichier[1];
+                 
+                
+                // TODO 
+                
+                    //récupérer l'extension
+                      // en fonction, adapter le content type : hyml/text ou image/jpeg  '
+                
+                
                 this.BOS.write("HTTP/1.0 200 OK\r\n".getBytes());
                 this.BOS.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n".getBytes());
                 this.BOS.write("Server: Apache/0.8.4\r\n".getBytes());
-                this.BOS.write("Content-Type: text/html\r\n".getBytes());
-                this.BOS.write("Content-Length: 59\r\n".getBytes());
+                this.BOS.write("Content-Type: image/jpeg\r\n".getBytes());
+                this.BOS.write(new String("Content-Length: " + monFichier.length() + "\r\n").getBytes());
                 this.BOS.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n".getBytes());
                 this.BOS.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n".getBytes());
                 this.BOS.write("\r\n".getBytes());
-                this.BOS.write("<TITLE>Exemple</TITLE>".getBytes());
-                this.BOS.write("<P>Ceci est une page d'exemple.</P>".getBytes());
-                this.BOS.flush();
+//                this.BOS.write("<TITLE>Exemple</TITLE>".getBytes());
+//                this.BOS.write("<P>Ceci est une page d'exemple.</P>".getBytes());
+                
+                
+                  
+            
+            Byte a = monFichier.readByte();
+            boolean b = true;
+           
+            while(b) {
+                this.BOS.write(a);
+                try {
+                    a = monFichier.readByte();
+                }
+                catch(EOFException e) {
+                     b = false;
+                }
             }
-
+              //this.BOS.write(new String("<img>" + "C:\\Users\\p1407206\\Desktop\\url.jpg" + "</img>").getBytes());
+                this.BOS.flush();
+            
 
         } catch (IOException ex) {
             Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,6 +18,9 @@ public class HTTPServeur {
             try {
                 Serveur s = new Serveur(4000);
                 s.Initialisation();
+                          while (true) {
+                        }
+
             } catch (IOException ex) {
                 Logger.getLogger(HTTPServeur.class.getName()).log(Level.SEVERE, null, ex);
             }
