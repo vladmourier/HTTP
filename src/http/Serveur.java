@@ -25,6 +25,7 @@ public class Serveur{
    }
    
    public void run() {
+       boolean b = false;
        while (true) {
            try {
                 Socket Sclient = this.socketServer.accept();
