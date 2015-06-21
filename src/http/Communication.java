@@ -38,14 +38,19 @@ public class Communication extends ObjetConnecte implements Runnable {
     @Override
     public void run() {
         byte[] buffer = new byte[1024];
+        String racine = "web";
         try {
             this.OS = Sclient.getOutputStream();
             this.BOS = new BufferedOutputStream(this.OS);
             this.IS = Sclient.getInputStream();
             this.BIS = new BufferedInputStream(this.IS);
             this.BIS.read(buffer);
-
-            String adresseFichier = "C:\\Users\\Vladimir\\Desktop\\Test.html"; //"C:\\Users\\Vladimir\\Desktop\\url.jpg";
+            System.out.println(new String(buffer));
+            //Pour récupérer le fichier chible : on split new String(buffer) selon GET
+            //puis on split la deuxième string avec http et on prend la première
+            String chemin = new String(buffer).split("GET")[1].split("HTTP")[0];
+            System.out.println("////////////////chemin : " + chemin);
+            String adresseFichier = racine+chemin.substring(1);
 
             RandomAccessFile monFichier = new RandomAccessFile(adresseFichier, "rw");
 
@@ -63,8 +68,12 @@ public class Communication extends ObjetConnecte implements Runnable {
             this.BOS.write("\r\n".getBytes());
 //                this.BOS.write("<TITLE>Exemple</TITLE>".getBytes());
 //                this.BOS.write("<P>Ceci est une page d'exemple.</P>".getBytes());
-
-            Byte a = monFichier.readByte();
+            Byte a = null;
+            try {
+                a = monFichier.readByte();
+            } catch (EOFException e) {
+                System.out.println(e.getMessage());
+            }
             boolean b = true;
 
             while (b) {
