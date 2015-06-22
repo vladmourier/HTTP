@@ -47,7 +47,7 @@ public class HTTPClient {
             
             BufferedOutputStream BOS = new BufferedOutputStream(connection.getOutputStream());
             BufferedInputStream BIS = new BufferedInputStream(connection.getInputStream());
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[1];
             
             BOS.write(post.getBytes());
             BOS.flush();
