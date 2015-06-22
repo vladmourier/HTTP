@@ -54,6 +54,7 @@ public class HTTPClient {
             while(BIS.read(buffer) != -1)
             {
                 fp.write(new String(buffer));
+                fp.flush();
                 document.append(new String(buffer));
             }
             System.out.println(new String(document));
