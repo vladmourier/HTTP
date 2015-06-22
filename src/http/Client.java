@@ -7,6 +7,8 @@ package http;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -32,6 +34,15 @@ public class Client extends ObjetConnecte {
 
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    
     public void envoyer(byte[] array) throws IOException {
         this.BOS.write(array);
         BOS.flush();
@@ -40,9 +51,14 @@ public class Client extends ObjetConnecte {
 
     public byte[] reception() throws IOException {
         System.out.println("réception");
-        byte[] buffer = new byte[1024];
-        BIS.read(buffer);
-        System.out.println("J'ai reçu : " + new String(buffer));
+        byte[] buffer = new byte[1];
+        FileWriter fp = new FileWriter(new File("file.txt"), false);
+
+        while (BIS.read(buffer) != -1) {
+            fp.write(new String(buffer));
+            fp.flush();
+            System.out.print(new String(buffer));
+        }
         return buffer;
     }
 }

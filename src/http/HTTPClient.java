@@ -30,74 +30,75 @@ public class HTTPClient {
      */
     public static void main(String[] args) {
         try {
-            String s_url = "http://polytech.univ-lyon1.fr";
+//            String s_url = "http://134.214.116.152:4000/test.html";
+////            System.out.println("Saisir l'addresse de la page voulue");
+////            byte[] address = new byte[1000];
+////            System.in.read(address);
+////            s_url = new String(address);
+//            FileWriter fp = new FileWriter(new File("file.txt"), false);
+//            String post = "";
+//            StringBuilder document = new StringBuilder();
+//            URL url = new URL(s_url);
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setUseCaches(false);
+//            connection.setDoOutput(true);
+//            connection.setDoInput(true);
+//
+//            BufferedOutputStream BOS = new BufferedOutputStream(connection.getOutputStream());
+//            BufferedInputStream BIS = new BufferedInputStream(connection.getInputStream());
+//            byte[] buffer = new byte[1];
+//
+//            BOS.write(post.getBytes());
+//            BOS.flush();
+//            while (BIS.read(buffer) != -1) {
+//                fp.write(new String(buffer));
+//                fp.flush();
+//                document.append(new String(buffer));
+//            }
+//
+//            System.out.println("\nrestant à afficher " + BIS.available());
+//
+//            while (true) {
+//                System.out.println("Saisir l'addresse de la page voulue");
+//                byte[] address = new byte[1000];
+//                System.in.read(address);
+//                s_url = new String(address);
+//                document = new StringBuilder();
+//                url = new URL(s_url);
+//                connection = (HttpURLConnection) url.openConnection();
+//                connection.setUseCaches(false);
+//                connection.setDoOutput(true);
+//                connection.setDoInput(true);
+//
+//                BOS = new BufferedOutputStream(connection.getOutputStream());
+//                BIS = new BufferedInputStream(connection.getInputStream());
+//
+//                BOS.write(post.getBytes());
+//                BOS.flush();
+//                while (BIS.read(buffer) != -1) {
+//                    fp.write(new String(buffer));
+//                    fp.flush();
+//                    document.append(new String(buffer));
+//                }
+//                System.out.println(new String(document));
+//
+//                System.out.println("\nrestant à afficher " + BIS.available());
+//
+//            }
+
+            Client c = new Client(InetAddress.getByName("127.0.0.1"), 4000);
+            //GET /repertoire/page.html HTTP/1.1
+            System.out.println(c.getIa_c().getHostAddress());
+            c.envoyer(new String("GET /Test.html HTTP/1.1\r\nHost:" + c.getIa_c().getHostAddress() + ":4000\n").getBytes());
+            c.reception();
+            
+            
 //            System.out.println("Saisir l'addresse de la page voulue");
 //            byte[] address = new byte[1000];
 //            System.in.read(address);
-//            s_url = new String(address);
-            FileWriter fp = new FileWriter(new File("E:/file.txt"), false);
-            String post = "";
-            StringBuilder document = new StringBuilder();
-            URL url = new URL(s_url);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setUseCaches(false);
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-
-            BufferedOutputStream BOS = new BufferedOutputStream(connection.getOutputStream());
-            BufferedInputStream BIS = new BufferedInputStream(connection.getInputStream());
-            byte[] buffer = new byte[1];
-
-            BOS.write(post.getBytes());
-            BOS.flush();
-
-            System.out.println(connection.getResponseMessage());
-            while (BIS.read(buffer) != -1) {
-                fp.write(new String(buffer));
-                fp.flush();
-                document.append(new String(buffer));
-            }
-            System.out.println(new String(document));
-
-            System.out.println("\nrestant à afficher " + BIS.available());
-
-            while (true) {
-                System.out.println("Saisir l'addresse de la page voulue");
-                byte[] address = new byte[1000];
-                System.in.read(address);
-                s_url = new String(address);
-                document = new StringBuilder();
-                url = new URL(s_url);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setUseCaches(false);
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-
-                BOS = new BufferedOutputStream(connection.getOutputStream());
-                BIS = new BufferedInputStream(connection.getInputStream());
-                fp = new FileWriter(new File("E:/file.txt"), false);
-
-                BOS.write(post.getBytes());
-                BOS.flush();
-                System.out.println(connection.getResponseMessage());
-                while (BIS.read(buffer) != -1) {
-                    fp.write(new String(buffer));
-                    fp.flush();
-                    document.append(new String(buffer));
-                }
-                System.out.println(new String(document));
-
-                System.out.println("\nrestant à afficher " + BIS.available());
-
-            }
-
-//            Client c = new Client(InetAddress.getByName("www.koreus.com"), 80);
-//            //GET /repertoire/page.html HTTP/1.1
-//            System.out.println(c.getIa_c().getHostAddress());
-//            c.envoyer(new String("GET / HTTP/1.1\r\nHost:" + c.getIa_c().getHostAddress() + ":80\n").getBytes());
-//            c.reception();
+//            String s_url = new String(address);
+            c.getSocket().close();
+            
         } catch (IOException ex) {
             Logger.getLogger(HTTPClient.class.getName()).log(Level.SEVERE, null, ex);
         }
