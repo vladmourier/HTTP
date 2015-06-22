@@ -34,6 +34,15 @@ public class Client extends ObjetConnecte {
 
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    
     public void envoyer(byte[] array) throws IOException {
         this.BOS.write(array);
         BOS.flush();

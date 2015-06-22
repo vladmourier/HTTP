@@ -86,11 +86,19 @@ public class HTTPClient {
 //
 //            }
 
-            Client c = new Client(InetAddress.getByName("134.214.116.152"), 4000);
+            Client c = new Client(InetAddress.getByName("134.214.117.60"), 4000);
             //GET /repertoire/page.html HTTP/1.1
             System.out.println(c.getIa_c().getHostAddress());
-            c.envoyer(new String("GET /Test.html HTTP/1.1\r\nHost:" + c.getIa_c().getHostAddress() + ":4000\n").getBytes());
+            c.envoyer(new String("GET /dsjkffgdjh HTTP/1.1\r\nHost:" + c.getIa_c().getHostAddress() + ":4000\n").getBytes());
             c.reception();
+            
+            
+//            System.out.println("Saisir l'addresse de la page voulue");
+//            byte[] address = new byte[1000];
+//            System.in.read(address);
+//            String s_url = new String(address);
+            c.getSocket().close();
+            
         } catch (IOException ex) {
             Logger.getLogger(HTTPClient.class.getName()).log(Level.SEVERE, null, ex);
         }
