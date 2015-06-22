@@ -51,6 +51,8 @@ public class HTTPClient {
 
             BOS.write(post.getBytes());
             BOS.flush();
+
+            System.out.println(connection.getResponseMessage());
             while (BIS.read(buffer) != -1) {
                 fp.write(new String(buffer));
                 fp.flush();
@@ -75,9 +77,11 @@ public class HTTPClient {
 
                 BOS = new BufferedOutputStream(connection.getOutputStream());
                 BIS = new BufferedInputStream(connection.getInputStream());
+                fp = new FileWriter(new File("E:/file.txt"), false);
 
                 BOS.write(post.getBytes());
                 BOS.flush();
+                System.out.println(connection.getResponseMessage());
                 while (BIS.read(buffer) != -1) {
                     fp.write(new String(buffer));
                     fp.flush();
