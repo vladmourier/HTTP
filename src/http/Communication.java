@@ -49,7 +49,6 @@ public class Communication extends ObjetConnecte implements Runnable {
             //Pour récupérer le fichier chible : on split new String(buffer) selon GET
             //puis on split la deuxième string avec http et on prend la première
             String chemin = new String(buffer).split("GET")[1].split("HTTP")[0];
-            System.out.println("////////////////chemin : " + chemin);
             String adresseFichier = racine+chemin.substring(1);
 
             RandomAccessFile monFichier = new RandomAccessFile(adresseFichier, "rw");
