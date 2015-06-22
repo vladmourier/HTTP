@@ -41,8 +41,12 @@ public class Client extends ObjetConnecte {
     public byte[] reception() throws IOException {
         System.out.println("réception");
         byte[] buffer = new byte[1024];
-        BIS.read(buffer);
-        System.out.println("J'ai reçu : " + new String(buffer));
+        StringBuilder document = new StringBuilder();
+
+        while (BIS.read(buffer) != -1) {
+            document.append(new String(buffer));
+        }
+        System.out.println("J'ai reçu : " + new String(document));
         return buffer;
     }
 }
