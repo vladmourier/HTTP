@@ -18,7 +18,6 @@ public class HTTPServeur {
         public static void main(String[] args){
             try {
                 Serveur s = new Serveur(4000);
-
                 s.run();
 
             } catch (IOException ex) {
