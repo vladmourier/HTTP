@@ -30,12 +30,12 @@ public class HTTPClient {
      */
     public static void main(String[] args) {
         try {
-            System.out.println("Saisir l'addresse de la page voulue");
-            byte[] address = new byte[1000];
-            System.in.read(address);
-            String s_url = new String(address);
+            String s_url = "http://polytech.univ-lyon1.fr";
+//            System.out.println("Saisir l'addresse de la page voulue");
+//            byte[] address = new byte[1000];
+//            System.in.read(address);
+//            s_url = new String(address);
             FileWriter fp = new FileWriter(new File("E:/file.txt"), false);
-//            String s_url = "http://www.koreus.com";
             String post = "";
             StringBuilder document = new StringBuilder();
             URL url = new URL(s_url);
@@ -44,24 +44,51 @@ public class HTTPClient {
             connection.setUseCaches(false);
             connection.setDoOutput(true);
             connection.setDoInput(true);
-            
+
             BufferedOutputStream BOS = new BufferedOutputStream(connection.getOutputStream());
             BufferedInputStream BIS = new BufferedInputStream(connection.getInputStream());
             byte[] buffer = new byte[1];
-            
+
             BOS.write(post.getBytes());
             BOS.flush();
-            while(BIS.read(buffer) != -1)
-            {
+            while (BIS.read(buffer) != -1) {
                 fp.write(new String(buffer));
                 fp.flush();
                 document.append(new String(buffer));
             }
             System.out.println(new String(document));
-            
+
             System.out.println("\nrestant à afficher " + BIS.available());
-            
-            
+
+            while (true) {
+                System.out.println("Saisir l'addresse de la page voulue");
+                byte[] address = new byte[1000];
+                System.in.read(address);
+                s_url = new String(address);
+                document = new StringBuilder();
+                url = new URL(s_url);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setUseCaches(false);
+                connection.setDoOutput(true);
+                connection.setDoInput(true);
+
+                BOS = new BufferedOutputStream(connection.getOutputStream());
+                BIS = new BufferedInputStream(connection.getInputStream());
+
+                BOS.write(post.getBytes());
+                BOS.flush();
+                while (BIS.read(buffer) != -1) {
+                    fp.write(new String(buffer));
+                    fp.flush();
+                    document.append(new String(buffer));
+                }
+                System.out.println(new String(document));
+
+                System.out.println("\nrestant à afficher " + BIS.available());
+
+            }
+
 //            Client c = new Client(InetAddress.getByName("www.koreus.com"), 80);
 //            //GET /repertoire/page.html HTTP/1.1
 //            System.out.println(c.getIa_c().getHostAddress());
