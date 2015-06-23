@@ -21,10 +21,10 @@ public class HTTPClient {
      */
     public static void main(String[] args) {
         try {
-            Client c = new Client(InetAddress.getByName("127.0.0.1"), 4000);
+            Client c = new Client(InetAddress.getByName("134.214.117.76"), 4000);
             //GET /repertoire/page.html HTTP/1.1\r\n
             System.out.println(c.getIa_c().getHostAddress());
-            c.envoyer(new String("GET /Test.html HTTP/1.0\r\nHost:" + c.getIa_c().getHostAddress() + ":4000\n").getBytes());
+            c.envoyer(new String("GET /img/portrait.jpg HTTP/1.0\r\nHost:" + c.getIa_c().getHostAddress() + ":4000\n").getBytes());
             c.reception();
 
             while (true) {

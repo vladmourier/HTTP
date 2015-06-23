@@ -8,6 +8,7 @@ package http;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -51,14 +52,13 @@ public class Client extends ObjetConnecte {
     public byte[] reception() throws IOException {
         System.out.println("réception");
         byte[] buffer = new byte[1];
-        FileWriter fp = new FileWriter(new File("file.html"), false);
+        FileOutputStream fp = new FileOutputStream(new File("file.jpg"), false);
         boolean finentete = false;
         boolean debutpage = false;
-        int retour;
         
-        while ((retour = BIS.read(buffer)) != -1) {
+        while (BIS.read(buffer) != -1) {
             if (debutpage) {
-                fp.write(new String(buffer));
+                fp.write(buffer);
                 fp.flush();
             } else if (!((new String(buffer).equals(new String("\r"))) || (new String(buffer).equals(new String("\n"))))) {
                 finentete = false;
