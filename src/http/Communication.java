@@ -115,6 +115,7 @@ public class Communication extends ObjetConnecte implements Runnable {
                     b = false;
                 }
             }
+                this.BOS.write("\r\n".getBytes());
                 this.BOS.flush();
                 
             } catch (IOException ex1) {

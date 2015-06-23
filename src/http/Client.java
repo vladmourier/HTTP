@@ -54,8 +54,9 @@ public class Client extends ObjetConnecte {
         FileWriter fp = new FileWriter(new File("file.html"), false);
         boolean finentete = false;
         boolean debutpage = false;
+        int retour;
         
-        while (BIS.read(buffer) != -1) {
+        while ((retour = BIS.read(buffer)) != -1) {
             if (debutpage) {
                 fp.write(new String(buffer));
                 fp.flush();
@@ -70,6 +71,7 @@ public class Client extends ObjetConnecte {
             }
             System.out.print(new String(buffer));
         }
+        System.out.println("Sortie while");
         fp.close();
         return buffer;
     }
