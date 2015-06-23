@@ -42,7 +42,6 @@ public class Client extends ObjetConnecte {
         this.socket = socket;
     }
 
-    
     public void envoyer(byte[] array) throws IOException {
         this.BOS.write(array);
         BOS.flush();
@@ -52,13 +51,26 @@ public class Client extends ObjetConnecte {
     public byte[] reception() throws IOException {
         System.out.println("réception");
         byte[] buffer = new byte[1];
-        FileWriter fp = new FileWriter(new File("file.txt"), false);
-
+        FileWriter fp = new FileWriter(new File("file.html"), false);
+        boolean finentete = false;
+        boolean debutpage = false;
+        
         while (BIS.read(buffer) != -1) {
-            fp.write(new String(buffer));
-            fp.flush();
+            if (debutpage) {
+                fp.write(new String(buffer));
+                fp.flush();
+            } else if (!((new String(buffer).equals(new String("\r"))) || (new String(buffer).equals(new String("\n"))))) {
+                finentete = false;
+            } else if (new String(buffer).equals(new String("\n"))) {
+                if (finentete) {
+                    debutpage = true;
+                } else {
+                    finentete = true;
+                }
+            }
             System.out.print(new String(buffer));
         }
+        fp.close();
         return buffer;
     }
 }
