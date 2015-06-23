@@ -27,7 +27,7 @@ public class Client extends ObjetConnecte {
         super(ia, port);
         this.socket = new Socket(ia, port);
         this.port_c = this.socket.getLocalPort();
-        System.out.println("Socket créé port : " + port_c);
+        System.out.println("Socket cree port : " + port_c);
         this.IS = this.socket.getInputStream();
         this.BIS = new BufferedInputStream(this.IS);
         this.OS = this.socket.getOutputStream();
@@ -46,13 +46,13 @@ public class Client extends ObjetConnecte {
     public void envoyer(byte[] array) throws IOException {
         this.BOS.write(array);
         BOS.flush();
-        System.out.println("J'ai envoyé : " + new String(array));
+        System.out.println("J'ai envoye : " + new String(array));
     }
 
-    public byte[] reception() throws IOException {
-        System.out.println("réception");
+    public byte[] reception(String typeFichier) throws IOException {
+        System.out.println("reception");
         byte[] buffer = new byte[1];
-        FileOutputStream fp = new FileOutputStream(new File("file.jpg"), false);
+        FileOutputStream fp = new FileOutputStream(new File("file"+typeFichier), false);
         boolean finentete = false;
         boolean debutpage = false;
         
@@ -71,7 +71,6 @@ public class Client extends ObjetConnecte {
             }
             System.out.print(new String(buffer));
         }
-        System.out.println("Sortie while");
         fp.close();
         return buffer;
     }

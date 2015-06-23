@@ -33,7 +33,7 @@ public class Communication extends ObjetConnecte implements Runnable {
         port_dest = client.getPort();
         this.Sclient = client;
         this.address_dest = client.getInetAddress();
-        System.out.println("Communication cr√©√©e avec le Client : " + address_dest + " | " + port_dest);
+        System.out.println("Communication creee avec le Client : " + address_dest + " | " + port_dest);
     }
 
     @Override
@@ -45,16 +45,17 @@ public class Communication extends ObjetConnecte implements Runnable {
             this.BOS = new BufferedOutputStream(this.OS);
             this.IS = Sclient.getInputStream();
             this.BIS = new BufferedInputStream(this.IS);
+            System.out.println("J'attend un requÍte");
             this.BIS.read(buffer);
             System.out.println(new String(buffer));
-            //Pour r√©cup√©rer le fichier cible : on split new String(buffer) selon GET
+            //Pour recuperer le fichier cible : on split new String(buffer) selon GET
             //puis on split la deuxi√®me string avec http et on prend la premi√®re
             String chemin = new String(buffer).split("GET")[1].split("HTTP")[0];
             String adresseFichier = racine+chemin.substring(1);
 
             RandomAccessFile monFichier = new RandomAccessFile(adresseFichier, "r");
 
-            this.BOS.write("HTTP/1.0 200 OK\r\n".getBytes());
+            this.BOS.write("HTTP/1.1 200 OK\r\n".getBytes());
             this.BOS.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n".getBytes());
             this.BOS.write("Server: Apache/0.8.4\r\n".getBytes());
             if (adresseFichier.endsWith("jpg")) {
@@ -82,15 +83,14 @@ public class Communication extends ObjetConnecte implements Runnable {
                     b = false;
                 }
             }
-            //this.BOS.write(new String("<img>" + "C:\\Users\\p1407206\\Desktop\\url.jpg" + "</img>").getBytes());
+            System.out.println("Je rÈpond ‡ la requÍte");
             this.BOS.flush();
 
         } catch (IOException ex) {
-            //Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Erreur ici");
+            System.out.println("Fichier introuvable");
             try {
                 RandomAccessFile monFichier = new RandomAccessFile("web/404.html", "r");
-                this.BOS.write("HTTP/1.0 200 OK\r\n".getBytes());
+                this.BOS.write("HTTP/1.1 404 Not Found\r\n".getBytes());
                 this.BOS.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n".getBytes());
                 this.BOS.write("Server: Apache/0.8.4\r\n".getBytes());
                 this.BOS.write("Content-Type: text/html\r\n".getBytes());
